@@ -6,7 +6,7 @@
 /*   By: elias <elias@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:34:13 by elias             #+#    #+#             */
-/*   Updated: 2023/05/26 16:38:10 by elias            ###   ########.fr       */
+/*   Updated: 2023/05/30 13:52:13 by elias            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@
 // Print
 void HumanA::print(std::string const &str, int color) const
 {
-	std::string colorsString;
+	std::string colorsString = "";
 	std::string reset = "\e[0m";
-
+	
 	if (color > 0 && color <= 9)
 	{
 		std::ostringstream oss;
 		oss << "\e[3" << color << "m";
 		colorsString = oss.str();
 	}
+	if (str.empty())
+		std::cout << colorsString << "[HumanA " << this->_name << "] " << reset;
 	else
-		colorsString = "";
-	std::cout << colorsString << "[HumanA " << this->_name << "] " << reset << str << std::endl;
+		std::cout << colorsString << "[HumanA " << this->_name << "] " << reset << str << std::endl;
 }
 
 // Constructors
-HumanA::HumanA(std::string const &name, Weapon &weapon): _weapon(weapon)
+HumanA::HumanA(std::string const &name, Weapon &weapon): _weapon(&weapon)
 {
 	this->_name = name;
 	this->print("created", 2);
@@ -59,11 +60,16 @@ HumanA const	&HumanA::operator=(HumanA const &copy)
 }
 
 // Methods
+void HumanA::attack(void) const
+{
+	this->print("", 3);
+	std::cout << "attacks with their " << this->_weapon->getType() << std::endl;
+}
 
 // Getters
 Weapon *HumanA::getWeapon(void) const
 {
-    return (&this->_weapon);
+    return (this->_weapon);
 }
 
 std::string HumanA::getName(void) const
@@ -74,7 +80,7 @@ std::string HumanA::getName(void) const
 // Setters
 void HumanA::setWeapon(Weapon &weapon)
 {
-	this->_weapon = weapon;
+	this->_weapon = &weapon;
 }
 
 void	HumanA::setName(std::string const &name)

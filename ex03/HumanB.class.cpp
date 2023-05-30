@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.class.cpp                                   :+:      :+:    :+:   */
+/*   HumanB.class.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elias <elias@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:34:13 by elias             #+#    #+#             */
-/*   Updated: 2023/05/30 13:12:11 by elias            ###   ########.fr       */
+/*   Updated: 2023/05/30 13:52:42 by elias            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <sstream>
-#include "Weapon.class.hpp"
+#include "HumanB.class.hpp"
 
 // Print
-void Weapon::print(std::string str, int color) const
+void HumanB::print(std::string const &str, int color) const
 {
 	std::string colorsString = "";
 	std::string reset = "\e[0m";
@@ -27,52 +27,67 @@ void Weapon::print(std::string str, int color) const
 		colorsString = oss.str();
 	}
 	if (str.empty())
-		std::cout << colorsString << "[Weapon " << this->_type << "] " << reset;
+		std::cout << colorsString << "[HumanB " << this->_name << "] " << reset;
 	else
-		std::cout << colorsString << "[Weapon " << this->_type << "] " << reset << str << std::endl;
+		std::cout << colorsString << "[HumanB " << this->_name << "] " << reset << str << std::endl;
 }
 
 // Constructors
-Weapon::Weapon()
+HumanB::HumanB(std::string const &name)
 {
-	this->_type = "default weapon";
+	this->_name = name;
+	this->_weapon = NULL;
 	this->print("created", 2);
 }
 
-Weapon::Weapon(std::string const &type)
-{
-	this->_type = type;
-	this->print("created", 2);
-}
-
-Weapon::Weapon(Weapon const &copy)
+HumanB::HumanB(HumanB const &copy): _weapon(copy._weapon)
 {
 	*this = copy;
 	this->print("created by copy", 2);
 }
 
-Weapon::~Weapon()
+HumanB::~HumanB()
 {
 	this->print("deleted", 1);
 }
 
 // Operators
-Weapon const	&Weapon::operator=(Weapon const &copy)
+HumanB const	&HumanB::operator=(HumanB const &copy)
 {
-	this->_type = copy.getType();
+	this->_name = copy._name;
+	this->_weapon = copy._weapon;
 	this->print("created by assignment", 2);
 	return (*this);
 }
 
 // Methods
-
-// Getters and Setters
-std::string Weapon::getType(void) const
+void HumanB::attack(void) const
 {
-    return (this->_type);
+	this->print("", 3);
+	if (!this->_weapon)
+		std::cout << "has no weapon" << std::endl;
+	else
+		std::cout << "attacks with their " << this->_weapon->getType() << std::endl;
 }
 
-void Weapon::setType(std::string type)
+// Getters
+Weapon *HumanB::getWeapon(void) const
 {
-	this->_type = type;
+    return (this->_weapon);
+}
+
+std::string HumanB::getName(void) const
+{
+    return (this->_name);
+}
+
+// Setters
+void HumanB::setWeapon(Weapon &weapon)
+{
+	this->_weapon = &weapon;
+}
+
+void	HumanB::setName(std::string const &name)
+{
+	this->_name = name;
 }

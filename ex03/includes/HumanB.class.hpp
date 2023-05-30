@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.class.hpp                                   :+:      :+:    :+:   */
+/*   HumanB.class.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elias <elias@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:34:13 by elias             #+#    #+#             */
-/*   Updated: 2023/05/30 13:50:41 by elias            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:10:42 by elias            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_CLASS_H
-# define HUMANA_CLASS_H
+#ifndef HUMANB_CLASS_H
+# define HUMANB_CLASS_H
 
 # include <iostream>
 # include "Weapon.class.hpp"
 
-class HumanA
+class HumanB
 {
 	private:
 		std::string	 _name;
@@ -26,12 +26,12 @@ class HumanA
 
 	public:
 		// Constructors
-		HumanA(std::string const &name, Weapon &weapon);
-		HumanA(HumanA const &copy);
-		~HumanA();
+		HumanB(std::string const &name);
+		HumanB(HumanB const &copy);
+		~HumanB();
 
 		// Operators
-		HumanA const	&operator=(HumanA const &copy);
+		HumanB const	&operator=(HumanB const &copy);
  
 		// Methods
 		void	attack(void) const;
