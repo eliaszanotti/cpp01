@@ -6,7 +6,7 @@
 /*   By: elias <elias@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:34:13 by elias             #+#    #+#             */
-/*   Updated: 2023/05/31 14:20:53 by elias            ###   ########.fr       */
+/*   Updated: 2023/05/31 14:23:50 by elias            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,28 @@ void Harl::complain(std::string level)
 	tabFunc		harlMethods[4] = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 	std::string	levelTab[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	
-	for (int i = 0; i < 4; i++)
+	int	i;
+	for (i = 0; i < 4; i++)
 		if (levelTab[i] == level)
-			(this->*harlMethods[i])();
+			break;
+	if (i == 4)
+		this->print("wrong level name", 3);
+	while (i < 4)
+	{
+		switch (i)
+		{
+			case 0:
+				(this->*(harlMethods[i++]))();
+				break;
+			case 1:
+				(this->*(harlMethods[i++]))();
+				break;
+			case 2:
+				(this->*(harlMethods[i++]))();
+				break;
+			case 3:
+				(this->*(harlMethods[i++]))();
+				break;
+		}
+	}
 }
